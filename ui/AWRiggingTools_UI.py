@@ -11,6 +11,7 @@ from PySide.QtGui import *
 
 import libs.awRenamer as AWR
 import libs.awMirrorObj as AMO
+import libs.awWeights as AWW
 from libs.AWGeneral import *
 
 
@@ -106,8 +107,13 @@ class AWTools_UI(QDialog):
         self.operations_customHierarchiesLayout.addWidget(self.operations_customHi_selectButton)
 
     def _createConstraintsLayout(self):
-        self.constraintsBox = QGroupBox('Constraining')
+        self.constraintsBox = QGroupBox('Weights')
         self.constraintsBox_layout = QVBoxLayout(self.constraintsBox)
+
+        self.exportWeightsButton = QPushButton('Export Weights')
+        self.importWeightsButton = QPushButton('Import Weights')
+        self.constraintsBox_layout.addWidget(self.exportWeightsButton)
+        self.constraintsBox_layout.addWidget(self.importWeightsButton)
 
 
     def _createRenamerUI(self):
