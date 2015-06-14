@@ -14,9 +14,6 @@ import libs.awMirrorObj as AMO
 import libs.awWeights as AWW
 from libs.AWGeneral import *
 
-
-reload(AWR)
-
 def showui():
     main_window = maya.OpenMayaUI.MQtUtil.mainWindow()
     return wrapInstance(long(main_window), QWidget)
@@ -106,15 +103,17 @@ class AWTools_UI(QDialog):
         self.operations_customHierarchiesLayout.addLayout(self.operations_customHi_checkNodes)
         self.operations_customHierarchiesLayout.addWidget(self.operations_customHi_selectButton)
 
-    def _createConstraintsLayout(self):
-        self.constraintsBox = QGroupBox('Weights')
-        self.constraintsBox_layout = QVBoxLayout(self.constraintsBox)
+    def _createWeightsLayout(self):
+        self.weightsBox = QGroupBox('Weights')
+        self.weights_layout = QVBoxLayout(self.weightsBox)
 
         self.exportWeightsButton = QPushButton('Export Weights')
         self.importWeightsButton = QPushButton('Import Weights')
-        self.constraintsBox_layout.addWidget(self.exportWeightsButton)
-        self.constraintsBox_layout.addWidget(self.importWeightsButton)
-
+        self.weights_layout.addWidget(self.exportWeightsButton)
+        self.weights_layout.addWidget(self.importWeightsButton)
+        reload(AWW)
+        self.exportWeightsButton.clicked.connect(lambda: AWW.SkinCluster.exportSkin())
+        self.importWeightsButton.clicked.connect(lambda: AWW.SkinCluster.createAndImport())
 
     def _createRenamerUI(self):
 
@@ -457,7 +456,7 @@ class AWTools_UI(QDialog):
 
         self._createRenamerUI()
         self._createSecondUI()
-        self._createConstraintsLayout()
+        self._createWeightsLayout()
         self._createControlsLayout()
         self._createMirrorObjLayout()
         self._createRiggingLayout()
@@ -488,7 +487,7 @@ class AWTools_UI(QDialog):
         self.operationToolsLayout.addWidget(self.rename_groupBox)
         self.operationToolsLayout.addWidget(self.mirrorObjGroupBox)
         self.operationToolsLayout.addWidget(self.customHierarchiesBox)
-        self.operationToolsLayout.addWidget(self.constraintsBox)
+        self.operationToolsLayout.addWidget(self.weightsBox)
 
         self.riggingToolsLayout.addWidget(self.joints_groupBox)
         self.riggingToolsLayout.addWidget(self.jointOrient_groupBox)
