@@ -447,6 +447,12 @@ class AWTools_UI(QDialog):
         self.mirrorObj_mainLayout.addLayout(self.mirrorObj_xyzLayout)
         self.mirrorObj_mainLayout.addWidget(self.mirrorObj_mirrorButton)
 
+        # Connections
+
+        self.mirrorObj_updateButton.clicked.connect(lambda: AMO.update_sel())
+
+
+
     def _layout(self):
 
         # =====================
