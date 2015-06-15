@@ -14,7 +14,7 @@ import libs.awMirrorObj as AMO
 import libs.awWeights as AWW
 from libs.AWGeneral import *
 
-def showui():
+def getMayaWindow():
     main_window = maya.OpenMayaUI.MQtUtil.mainWindow()
     return wrapInstance(long(main_window), QWidget)
 
@@ -22,7 +22,7 @@ class AWTools_UI(QDialog):
     """
     Words
     """
-    def __init__(self, parent=showui()):
+    def __init__(self, parent=getMayaWindow()):
         super(AWTools_UI, self).__init__(parent)
 
     def start(self):
@@ -112,8 +112,9 @@ class AWTools_UI(QDialog):
         self.weights_layout.addWidget(self.exportWeightsButton)
         self.weights_layout.addWidget(self.importWeightsButton)
         reload(AWW)
-        self.exportWeightsButton.clicked.connect(lambda: AWW.SkinCluster.exportSkin())
-        self.importWeightsButton.clicked.connect(lambda: AWW.SkinCluster.createAndImport())
+        AWW
+        self.exportWeightsButton.clicked.connect(AWW.SkinCluster.export)
+        self.importWeightsButton.clicked.connect(AWW.SkinCluster.createAndImport)
 
     def _createRenamerUI(self):
 
