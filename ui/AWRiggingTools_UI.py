@@ -449,7 +449,27 @@ class AWTools_UI(QDialog):
 
         # Connections
 
-        self.mirrorObj_updateButton.clicked.connect(lambda: AMO.update_sel())
+        self.mirrorObj_updateButton.clicked.connect(lambda: self.updateSelectionField())
+        self.mirrorObj_mirrorButton.clicked.connect(lambda: self.mirrorSelection())
+
+    def mirrorSelection(self):
+        currentObj = self.mirrorObj_selObj_text.text()
+        tChecked = self.mirrorObj_transCheck.isChecked()
+        rChecked = self.mirrorObj_rotCheck.isChecked()
+        sChecked = self.mirrorObj_scaleCheck.isChecked()
+        searchText = self.mirrorObj_searchText.text()
+        replaceText = self.mirrorObj_replaceText.text()
+        reload(AMO)
+        AMO.AWMirrorObject(currentObj, tChecked, rChecked, sChecked, searchText, replaceText)
+
+    def updateSelectionField(self):
+        curSel = getCurrentSelection()
+        if len(curSel) > 1:
+            pmc.warning('You have more than one object selected. Please select one.')
+        elif len(curSel) == 0:
+            pmc.warning('Please select an object')
+        else:
+            self.mirrorObj_selObj_text.setText(str(curSel[0]))
 
 
 
