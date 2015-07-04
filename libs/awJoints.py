@@ -2,7 +2,7 @@ __author__ = 'Alex'
 
 
 import pymel.core as pmc
-from awGeneral import *
+from AWGeneral import *
 
 
 def splitBone(cuts=1, bone=None):

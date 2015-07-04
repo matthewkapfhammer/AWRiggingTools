@@ -39,13 +39,13 @@ class AWTools_UI(QDialog):
 
 
     def _connections(self):
-        self.rename_searchReplaceButton.clicked.connect(lambda: self.searchAndReplace())
+        self.rename_searchReplaceButton.released.connect(lambda: self.searchAndReplace())
         self.rename_prefixButton.clicked.connect(lambda: self.addPrefix())
         self.rename_suffixButton.clicked.connect(lambda: self.addSuffix())
         self.rename_renameButton.clicked.connect(lambda: self.renameItems())
 
     def renameItems(self):
-        strRename  = self.getFieldContents(self.rename_renameField)
+        strRename = self.getFieldContents(self.rename_renameField)
         startNum = self.getFieldContents(self.rename_startField)
         paddingNum = self.getFieldContents(self.rename_paddingField)
 
@@ -389,7 +389,7 @@ class AWTools_UI(QDialog):
         self.jointOrient_masterLayout.addWidget(self.jointOrient_tweakGroupBox)
 
         self.joints_groupBox = QGroupBox('Joint Splitter')
-        self.joints_layout = QVBoxLayout(self.joints_groupBox)
+        self.jointSplitLayout = QVBoxLayout(self.joints_groupBox)
 
         self.vfk_groupBox = QGroupBox('Variable FK')
         self.vfk_layout = QVBoxLayout(self.vfk_groupBox)
@@ -397,6 +397,84 @@ class AWTools_UI(QDialog):
         self.editJoints_groupBox = QGroupBox('Edit Joints')
         self.editJoints_layout = QVBoxLayout(self.editJoints_groupBox)
 
+    def _toggleStyleSheet(self):
+        return """
+        QSlider::groove:horizontal {
+            background:grey;
+            height: 40px;
+            border: 2px;
+        }
+
+        QSlider::add-page:horizontal {
+            background: #1F1F1F;
+            height: 40px;
+            width: 50px;
+        }
+
+        QSlider::handle:horizontal {
+            background: darkgrey;
+            border: 1px;
+            width: 80%;
+            margin-left: 1px;
+            margin-top: 1px;
+            margin-bottom: 1px;
+            border-radius: 1px;
+        }
+        """
+
+    def _createJointSplitLayout(self):
+
+        self.jointSplitSuffixLayout = QHBoxLayout()
+        self.jointSplitSuffixLabel = QLabel('Suffix for split joints: ')
+        self.jointSplitSuffixLine = QLineEdit('_split#')
+        self.jointSplitSliderLabel = QLabel('Number of Joints: ')
+        self.jointSplitSlider = QSlider(QtCore.Qt.Horizontal)
+        self.jointSplitSlider.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.jointSplitSlider.setRange(1, 50)
+        self.jointSplitSlider.setValue(1)
+        self.jointSplitNumbers = QLineEdit()
+        self.jointSplitNumbers.setReadOnly(True)
+        self.jointSplitNumbers.setText(str(1))
+        self.jointSplitNumbers.setFixedWidth(20)
+        self.jointSplitToggleLabel = QLabel('Keep Original Joint: ')
+        self.jointSplitKeepOriginalToggle = QSlider(QtCore.Qt.Horizontal)
+        self.jointSplitKeepOriginalToggle.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.jointSplitKeepOriginalToggle.setGeometry(30, 40, 100, 30)
+        self.jointSplitKeepOriginalToggle.setStyleSheet(self._toggleStyleSheet())
+        self.jointSplitKeepOriginalToggle.setRange(0, 1)
+        self.jointSplitKeepOriginalToggle.setValue(1)
+        self.jointSplitToggleOnOffLabel = QLabel('On')
+        self.jointSplitButton = QPushButton('Split Joint')
+        # click, connect qPushButton to the joints script
+
+        self.jointSplitSliderLayout = QHBoxLayout()
+        self.jointSplitToggleLayout = QHBoxLayout()
+        self.jointSplitSuffixLayout = QHBoxLayout()
+        self.jointSplitLayout.addLayout(self.jointSplitSuffixLayout)
+        self.jointSplitLayout.addLayout(self.jointSplitSliderLayout)
+        self.jointSplitLayout.addLayout(self.jointSplitToggleLayout)
+
+        self.jointSplitSuffixLayout.addWidget(self.jointSplitSuffixLabel)
+        self.jointSplitSuffixLayout.addWidget(self.jointSplitSuffixLine)
+        self.jointSplitSliderLayout.addWidget(self.jointSplitSliderLabel)
+        self.jointSplitSliderLayout.addWidget(self.jointSplitSlider)
+        self.jointSplitSliderLayout.addWidget(self.jointSplitNumbers)
+        self.jointSplitToggleLayout.addWidget(self.jointSplitToggleLabel)
+        self.jointSplitToggleLayout.addWidget(self.jointSplitKeepOriginalToggle)
+        self.jointSplitToggleLayout.addWidget(self.jointSplitToggleOnOffLabel)
+        self.jointSplitLayout.addWidget(self.jointSplitButton)
+
+        self.jointSplitSlider.valueChanged[int].connect(self._jointSplitValueChanged)
+        self.jointSplitKeepOriginalToggle.valueChanged[int].connect(self._jointSplitToggleValueChanged)
+
+    def _jointSplitValueChanged(self, value):
+        self.jointSplitNumbers.setText(str(value))
+
+    def _jointSplitToggleValueChanged(self, value):
+        if value == 0:
+            self.jointSplitToggleOnOffLabel.setText('Off')
+        else:
+            self.jointSplitToggleOnOffLabel.setText('On')
 
     def _createMirrorObjLayout(self):
         self.mirrorObjGroupBox = QGroupBox('Mirror Objs')
@@ -487,6 +565,7 @@ class AWTools_UI(QDialog):
         self._createControlsLayout()
         self._createMirrorObjLayout()
         self._createRiggingLayout()
+        self._createJointSplitLayout()
 
         self.main_layout = QVBoxLayout()
         self.main_layout.setContentsMargins(2, 2, 2, 2)
