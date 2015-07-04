@@ -52,23 +52,18 @@ def boneSplitter(cuts=1, suffix=None, keepOriginalJoint=True):
             segment.setParent(bone)
             pmc.delete(segment.getChildren())
             segment.rename(str(bone) + suffix.replace('#', '') + str(cut + 1))
-            AWG.breakAttrs(segment, ['t', 'r', 's'])
+            AWG.breakAttrs(segment, ['translate', 'rotate', 'scale'])
             AWG.unlockAttrs(segment, ['translate', 'rotate', 'scale'])
             pmc.makeIdentity(segment, apply=True, r=True, t=True, s=True)
             segment.setTranslation(cLoc, space='world')
             segment.setParent(bone)
-            if keepOriginalJoint:
-                segment.setParent(bone)
             parent = segment
         else:
             segment = pmc.duplicate(parent)[0]
             segment.setParent(parent)
             segment.rename(str(bone) + suffix.replace('#', '') + str(cut+1))
             segment.setTranslation(cLoc, space='world')
-            if keepOriginalJoint:
-                segment.setParent(parent)
-            else:
-                segment.setParent(parent)
+            segment.setParent(parent)
             parent = segment
         cLoc += splitVector
 

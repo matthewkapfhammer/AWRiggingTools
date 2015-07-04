@@ -20,7 +20,7 @@ def breakAttrs(node, nodeAttr):
 
 def unlockAttrs(node, channels):
     """
-    Wrote for batch breaking of attributes instead of doing them one by one.
+    Wrote for batch unlocking of attributes instead of doing them one by one.
     :param node: The node upon which to unlock an attribute connection.
     :param channels: List of channels to unlock.
     """
