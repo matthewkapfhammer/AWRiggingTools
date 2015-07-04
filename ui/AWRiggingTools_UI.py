@@ -12,7 +12,9 @@ from PySide.QtGui import *
 import libs.awRenamer as AWR
 import libs.awMirrorObj as AMO
 import libs.awWeights as AWW
+import libs.awJoints as AWJ
 from libs.AWGeneral import *
+from libs.awSettings import *
 
 def getMayaWindow():
     main_window = maya.OpenMayaUI.MQtUtil.mainWindow()
@@ -414,7 +416,7 @@ class AWTools_UI(QDialog):
         QSlider::handle:horizontal {
             background: darkgrey;
             border: 1px;
-            width: 80%;
+            width: 120%;
             margin-left: 1px;
             margin-top: 1px;
             margin-bottom: 1px;
@@ -425,9 +427,9 @@ class AWTools_UI(QDialog):
     def _createJointSplitLayout(self):
 
         self.jointSplitSuffixLayout = QHBoxLayout()
-        self.jointSplitSuffixLabel = QLabel('Suffix for split joints: ')
+        self.jointSplitSuffixLabel = QLabel('Suffix for split bones: ')
         self.jointSplitSuffixLine = QLineEdit('_split#')
-        self.jointSplitSliderLabel = QLabel('Number of Joints: ')
+        self.jointSplitSliderLabel = QLabel('Number of Bones: ')
         self.jointSplitSlider = QSlider(QtCore.Qt.Horizontal)
         self.jointSplitSlider.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.jointSplitSlider.setRange(1, 50)
@@ -436,7 +438,7 @@ class AWTools_UI(QDialog):
         self.jointSplitNumbers.setReadOnly(True)
         self.jointSplitNumbers.setText(str(1))
         self.jointSplitNumbers.setFixedWidth(20)
-        self.jointSplitToggleLabel = QLabel('Keep Original Joint: ')
+        self.jointSplitToggleLabel = QLabel('Keep Original Bone: ')
         self.jointSplitKeepOriginalToggle = QSlider(QtCore.Qt.Horizontal)
         self.jointSplitKeepOriginalToggle.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.jointSplitKeepOriginalToggle.setGeometry(30, 40, 100, 30)
@@ -444,7 +446,7 @@ class AWTools_UI(QDialog):
         self.jointSplitKeepOriginalToggle.setRange(0, 1)
         self.jointSplitKeepOriginalToggle.setValue(1)
         self.jointSplitToggleOnOffLabel = QLabel('On')
-        self.jointSplitButton = QPushButton('Split Joint')
+        self.jointSplitButton = QPushButton('Split Bone')
         # click, connect qPushButton to the joints script
 
         self.jointSplitSliderLayout = QHBoxLayout()
@@ -457,8 +459,8 @@ class AWTools_UI(QDialog):
         self.jointSplitSuffixLayout.addWidget(self.jointSplitSuffixLabel)
         self.jointSplitSuffixLayout.addWidget(self.jointSplitSuffixLine)
         self.jointSplitSliderLayout.addWidget(self.jointSplitSliderLabel)
-        self.jointSplitSliderLayout.addWidget(self.jointSplitSlider)
         self.jointSplitSliderLayout.addWidget(self.jointSplitNumbers)
+        self.jointSplitSliderLayout.addWidget(self.jointSplitSlider)
         self.jointSplitToggleLayout.addWidget(self.jointSplitToggleLabel)
         self.jointSplitToggleLayout.addWidget(self.jointSplitKeepOriginalToggle)
         self.jointSplitToggleLayout.addWidget(self.jointSplitToggleOnOffLabel)
@@ -466,6 +468,17 @@ class AWTools_UI(QDialog):
 
         self.jointSplitSlider.valueChanged[int].connect(self._jointSplitValueChanged)
         self.jointSplitKeepOriginalToggle.valueChanged[int].connect(self._jointSplitToggleValueChanged)
+        self.jointSplitButton.released.connect(lambda: self.splitBone())
+
+    def splitBone(self):
+        if self.jointSplitKeepOriginalToggle.value() == 1:
+            keepOrigJoint = True
+        else:
+            keepOrigJoint = False
+        reload(AWJ)
+        AWJ.boneSplitter(cuts=int(self.jointSplitNumbers.text()),
+                         suffix=self.jointSplitSuffixLine.text(),
+                         keepOriginalJoint=keepOrigJoint)
 
     def _jointSplitValueChanged(self, value):
         self.jointSplitNumbers.setText(str(value))
@@ -543,9 +556,9 @@ class AWTools_UI(QDialog):
     def updateSelectionField(self):
         curSel = getCurrentSelection()
         if len(curSel) > 1:
-            pmc.warning('You have more than one object selected. Please select one.')
+            pmc.warning(eTOOMANYOBJECTSSELECTED)
         elif len(curSel) == 0:
-            pmc.warning('Please select an object')
+            pmc.warning(eSELECTOBJECT)
         else:
             self.mirrorObj_selObj_text.setText(str(curSel[0]))
 
