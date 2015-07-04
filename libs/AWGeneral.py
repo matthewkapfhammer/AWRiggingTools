@@ -27,3 +27,5 @@ def unlockXForms(node):
     axes = ['X', 'Y', 'Z']
 
     map(pmc.setAttr(node + xforms + axes, lock=False, keyable=True))
+
+# Goddammit
