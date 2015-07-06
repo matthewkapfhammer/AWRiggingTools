@@ -68,9 +68,6 @@ class AWTools_UI(QDialog):
     def getFieldContents(self, item):
         return item.text()
 
-    def getSelection(self):
-        return pmc.ls(sl=True)
-
     def _createSecondUI(self):
 
         # Custom Hierarchies
@@ -398,6 +395,109 @@ class AWTools_UI(QDialog):
         self.editJoints_groupBox = QGroupBox('Edit Joints')
         self.editJoints_layout = QVBoxLayout(self.editJoints_groupBox)
 
+        self.skinning_groupBox = QGroupBox('Skinning')
+        self.skinning_layout = QVBoxLayout(self.skinning_groupBox)
+
+    def _createSkinningLayout(self):
+        self.skinning_polygonLabel = QLabel('Polygon: ')
+        self.skinning_polygonLine = QLineEdit('')
+        self.skinning_polygonSetButton = QPushButton('Set')
+
+        self.skinning_polygonLayout = QHBoxLayout()
+        self.skinning_polygonLayout.addWidget(self.skinning_polygonLabel)
+        self.skinning_polygonLayout.addWidget(self.skinning_polygonLine)
+        self.skinning_polygonLayout.addWidget(self.skinning_polygonSetButton)
+
+        self.skinning_subDLabel = QLabel('SubD Items:')
+        self.skinning_subDLine = QLineEdit('')
+        self.skinning_subDSetButton = QPushButton('Set')
+        self.skinning_subDAddButton = QPushButton('Add')
+        self.skinning_subDClearButton = QPushButton('Clear')
+
+        self.skinning_subDLayout = QHBoxLayout()
+        self.skinning_subDButtonsLayout = QHBoxLayout()
+        self.skinning_subDLayout.addWidget(self.skinning_subDLabel)
+        self.skinning_subDLayout.addWidget(self.skinning_subDLine)
+        self.skinning_subDButtonsLayout.addWidget(self.skinning_subDSetButton)
+        self.skinning_subDButtonsLayout.addWidget(self.skinning_subDAddButton)
+        self.skinning_subDButtonsLayout.addWidget(self.skinning_subDClearButton)
+
+        self.skinning_deleteHistoryLabel = QLabel('Delete History')
+        self.skinning_deleteHistorySlider = QSlider(QtCore.Qt.Horizontal)
+        self.skinning_deleteHistorySlider.setRange(0, 1)
+        self.skinning_deleteHistorySlider.setValue(1)
+        self.skinning_deleteHistorySlider.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.skinning_deleteHistorySlider.setStyleSheet(self._toggleStyleSheet())
+
+        self.skinning_deleteHistoryLayout = QHBoxLayout()
+        self.skinning_deleteHistoryLayout.addWidget(self.skinning_deleteHistoryLabel)
+        self.skinning_deleteHistoryLayout.addWidget(self.skinning_deleteHistorySlider)
+
+        self.skinning_smoothCopyLabel = QLabel('Smooth Copy ')
+        self.skinning_smoothCopySlider = QSlider(QtCore.Qt.Horizontal)
+        self.skinning_smoothCopySlider.setRange(0, 1)
+        self.skinning_smoothCopySlider.setValue(1)
+        self.skinning_smoothCopySlider.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.skinning_smoothCopySlider.setStyleSheet(self._toggleStyleSheet())
+
+        self.skinning_smoothCopyLayout = QHBoxLayout()
+        self.skinning_smoothCopyLayout.addWidget(self.skinning_smoothCopyLabel)
+        self.skinning_smoothCopyLayout.addWidget(self.skinning_smoothCopySlider)
+
+        self.skinning_reskinButton = QPushButton('Reskin')
+
+        self.skinning_layout.addLayout(self.skinning_polygonLayout)
+        self.skinning_layout.addLayout(self.skinning_subDLayout)
+        self.skinning_layout.addLayout(self.skinning_subDButtonsLayout)
+        self.skinning_layout.addLayout(self.skinning_deleteHistoryLayout)
+        self.skinning_layout.addLayout(self.skinning_smoothCopyLayout)
+        self.skinning_layout.addWidget(self.skinning_reskinButton)
+        # type isn't correct yet.
+        self.skinning_subDSetButton.clicked.connect(lambda: self._updateLineMultItems(self.skinning_subDLabel, 'subDivisons'))
+        self.skinning_subDAddButton.released.connect(lambda: self._addToSubDLine())
+        self.skinning_subDClearButton.released.connect(lambda: self.skinning_subDLine.setText(''))
+
+        self.skinning_polygonSetButton.released.connect(lambda: self._updateLineOneItem(self.skinning_polygonLine, 'polygon'))
+        self.skinning_deleteHistorySlider.valueChanged[int].connect(self._deleteHistorySliderChanged)
+        self.skinning_smoothCopySlider.valueChanged[int].connect(self._smoothCopySliderChanged)
+        self.skinning_reskinButton.released.connect(lambda: self._reskinButtonConnections())
+
+    def _reskinButtonConnections(self):
+        pass
+
+    def _addToSubDLine(self):
+        itemNames = getSelectedItemsOfType('subdivisionType')
+        if itemNames:
+            currentItems = self.skinning_subDLine.text()
+            if not currentItems:
+                self.skinning_subDLine.setText(', '.join(itemNames))
+            else:
+                # this might be wrong.
+                self.skinning_subDLine.setText(currentItems + ', ' + ', '.join(itemNames))
+
+    def _updateLineOneItem(self, line, nodeType):
+        itemName = getSelectedItemOfType(nodeType)
+        if itemName:
+            line.setText(itemName)
+
+    def _updateLineMultItems(self, label, nodeType):
+        itemNames = getSelectedItemsOfType(nodeType)
+        if itemNames:
+            label.setText(','.join(i for i in itemNames))
+
+    def _deleteHistorySliderChanged(self, value):
+        if value == 0:
+            self.skinning_deleteHistoryLabel.setText('Keep History')
+        else:
+            self.skinning_deleteHistoryLabel.setText('Delete History')
+
+    def _smoothCopySliderChanged(self, value):
+        if value == 0:
+            self.skinning_smoothCopyLabel.setText('Hard Copy')
+        else:
+            self.skinning_smoothCopyLabel.setText('Smooth Copy')
+
+
     def _toggleStyleSheet(self):
         return """
         QSlider::groove:horizontal {
@@ -440,7 +540,6 @@ class AWTools_UI(QDialog):
         self.jointSplitToggleLabel = QLabel('Keep Original Bone: ')
         self.jointSplitKeepOriginalToggle = QSlider(QtCore.Qt.Horizontal)
         self.jointSplitKeepOriginalToggle.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.jointSplitKeepOriginalToggle.setGeometry(30, 40, 100, 30)
         self.jointSplitKeepOriginalToggle.setStyleSheet(self._toggleStyleSheet())
         self.jointSplitKeepOriginalToggle.setRange(0, 1)
         self.jointSplitKeepOriginalToggle.setValue(1)
@@ -553,13 +652,9 @@ class AWTools_UI(QDialog):
         AMO.AWMirrorObject(currentObj, tChecked, rChecked, sChecked, searchText, replaceText)
 
     def updateSelectionField(self):
-        curSel = getCurrentSelection()
-        if len(curSel) > 1:
-            pmc.warning(eTOOMANYOBJECTSSELECTED)
-        elif len(curSel) == 0:
-            pmc.warning(eSELECTOBJECT)
-        else:
-            self.mirrorObj_selObj_text.setText(str(curSel[0]))
+        curSel = getCurrentItemSelected()
+        self.mirrorObj_selObj_text.setText(curSel.name())
+
 
     def _createConstraintsLayout(self):
         self.constraints_createIKPVButton = QPushButton('Create IK PV Loc')
@@ -584,6 +679,7 @@ class AWTools_UI(QDialog):
         self._createRiggingLayout()
         self._createJointSplitLayout()
         self._createConstraintsLayout()
+        self._createSkinningLayout()
 
         self.main_layout = QVBoxLayout()
         self.main_layout.setContentsMargins(2, 2, 2, 2)
@@ -618,6 +714,7 @@ class AWTools_UI(QDialog):
 
         self.riggingToolsLayout.addWidget(self.editJoints_groupBox)
         self.riggingToolsLayout.addWidget(self.constraints_groupBox)
+        self.riggingToolsLayout.addWidget(self.skinning_groupBox)
 
         self.tab_layout = QTabWidget()
         self.tab_layout.addTab(self.operationToolsWidget, 'Operations')

@@ -80,20 +80,3 @@ class OrientJoints:
     def main(self):
         pass
 
-    """
-    if not bone:
-        if pmc.selected() and pmc.nodeType(pmc.selected()[0] == 'joint'):
-
-            bone = pmc.selected()[0]
-        else:
-            pmc.displayWarning('Please select a bone.')
-            return
-    else:
-        try:
-            bone = pmc.PyNode(bone)
-            pmc.select(bone)
-            if pmc.nodeType(bone) != 'joint':
-                return
-        except:
-            pmc.displayWarning('Please select a bone.')
-    """

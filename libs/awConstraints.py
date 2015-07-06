@@ -15,7 +15,7 @@ def ikPoleVectorLoc():
     In the future, I'll build it to work if only one joint is selected,
     but I'm a little strapped for time today.
     """
-    curSel = getCurrentSelection()
+    curSel = getCurrentSelectionList()
 
     if len(curSel) != 3:
         pmc.displayError(eSELECTSTARTMIDEND)
