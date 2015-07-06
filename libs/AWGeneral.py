@@ -1,6 +1,9 @@
 #!/usr/bin/python
+
 import pymel.core as pmc
+
 from awSettings import *
+
 
 def getCurrentSelection():
     return pmc.ls(sl=1)
@@ -18,6 +21,7 @@ def breakAttrs(node, channels):
 
     for c in channels:
         pmc.disconnectAttr(node + '.' + c)
+
 
 def unlockAttrs(node, channels):
     """

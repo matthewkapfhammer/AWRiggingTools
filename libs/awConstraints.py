@@ -1,11 +1,12 @@
 __author__ = 'Alex'
 
-
-from AWGeneral import *
+import math
 import pymel.core as pmc
 import maya.OpenMaya as OM
+
+from AWGeneral import *
 from awSettings import *
-import math
+
 
 def ikPoleVectorLoc():
     """Create an IK Pole Vector locator based on the bone selection.

@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="e65b02ea-d64c-4d9d-987f-61327771621f" name="Default" comment="" />
-    <list default="true" id="08c6ab6e-308c-4c92-b18f-51b980ab221d" name="Test Changelist Name" comment="Bone splitter cleanup.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/awConstraints.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/AWRiggingTools_UI.py" afterPath="$PROJECT_DIR$/ui/AWRiggingTools_UI.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/awJoints.py" afterPath="$PROJECT_DIR$/libs/awJoints.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/awSettings.py" afterPath="$PROJECT_DIR$/libs/awSettings.py" />
+    <list default="true" id="08c6ab6e-308c-4c92-b18f-51b980ab221d" name="Test Changelist Name" comment="ikPoleVector locator creator.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/AWGeneral.py" afterPath="$PROJECT_DIR$/libs/AWGeneral.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/awConstraints.py" afterPath="$PROJECT_DIR$/libs/awConstraints.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="31e87ccd-ad51-47ae-9494-ad160e18659c" name="Failed commit: Test Changelist Name" comment="Adding Joint Splitter, will fix up tomorrow." />
@@ -41,11 +39,9 @@
           <file leaf-file-name="AWRiggingTools_UI.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ui/AWRiggingTools_UI.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-4.37931">
-                  <caret line="557" column="47" selection-start-line="557" selection-start-column="47" selection-end-line="557" selection-end-column="47" />
-                  <folding>
-                    <element signature="e#19#35#0" expanded="true" />
-                  </folding>
+                <state vertical-scroll-proportion="-4.1034484">
+                  <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -54,9 +50,9 @@
             <entry file="file://$PROJECT_DIR$/libs/AWGeneral.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+                  <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
                   <folding>
-                    <element signature="e#18#42#0" expanded="true" />
+                    <element signature="e#19#43#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -65,10 +61,10 @@
           <file leaf-file-name="awConstraints.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/libs/awConstraints.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.35172415">
-                  <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+                <state vertical-scroll-proportion="0.19800332">
+                  <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
                   <folding>
-                    <element signature="e#22#45#0" expanded="true" />
+                    <element signature="e#21#32#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -126,9 +122,9 @@
             <entry file="file://$PROJECT_DIR$/libs/AWGeneral.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+                  <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
                   <folding>
-                    <element signature="e#18#42#0" expanded="true" />
+                    <element signature="e#19#43#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -137,7 +133,7 @@
           <file leaf-file-name="awJoints.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/libs/awJoints.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.29250893">
+                <state vertical-scroll-proportion="0.43006992">
                   <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
                   <folding>
                     <element signature="e#22#46#0" expanded="true" />
@@ -178,11 +174,11 @@
         <option value="$PROJECT_DIR$/libs/awWeights.py" />
         <option value="$PROJECT_DIR$/libs/awMirrorObj.py" />
         <option value="$PROJECT_DIR$/libs/awGeneral.py" />
-        <option value="$PROJECT_DIR$/libs/AWGeneral.py" />
         <option value="$PROJECT_DIR$/libs/awJoints.py" />
         <option value="$PROJECT_DIR$/libs/awSettings.py" />
         <option value="$PROJECT_DIR$/ui/AWRiggingTools_UI.py" />
         <option value="$PROJECT_DIR$/libs/awConstraints.py" />
+        <option value="$PROJECT_DIR$/libs/AWGeneral.py" />
       </list>
     </option>
   </component>
@@ -651,7 +647,13 @@
       <option name="project" value="LOCAL" />
       <updated>1436051866016</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="ikPoleVector locator creator.">
+      <created>1436151470013</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1436151470013</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <option name="trackContextForNewChangelist" value="true" />
     <servers />
   </component>
@@ -673,10 +675,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.50852877" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850778" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29978356" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29955456" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18550107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18550107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17965367" sideWeight="0.4914712" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -733,7 +735,8 @@
     <MESSAGE value="AWGeneral is being a bitch." />
     <MESSAGE value="Bone splitter." />
     <MESSAGE value="Bone splitter cleanup." />
-    <option name="LAST_COMMIT_MESSAGE" value="Bone splitter cleanup." />
+    <MESSAGE value="ikPoleVector locator creator." />
+    <option name="LAST_COMMIT_MESSAGE" value="ikPoleVector locator creator." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -775,9 +778,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -786,7 +787,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
           <folding>
-            <element signature="e#18#42#0" expanded="true" />
+            <element signature="e#19#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -815,9 +816,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="460" column="55" selection-start-line="460" selection-start-column="55" selection-end-line="460" selection-end-column="55" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -826,7 +825,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
           <folding>
-            <element signature="e#18#42#0" expanded="true" />
+            <element signature="e#19#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -855,9 +854,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +863,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
           <folding>
-            <element signature="e#18#42#0" expanded="true" />
+            <element signature="e#19#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -892,9 +889,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -903,7 +898,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#18#42#0" expanded="true" />
+            <element signature="e#19#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -929,9 +924,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -956,9 +949,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="227" column="27" selection-start-line="227" selection-start-column="27" selection-end-line="227" selection-end-column="27" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -983,9 +974,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="232" column="28" selection-start-line="232" selection-start-column="28" selection-end-line="232" selection-end-column="28" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1010,9 +999,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,9 +1014,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1044,9 +1029,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="93" column="47" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1145,6 +1128,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/libs/awSettings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/awJoints.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43006992">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="e#22#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/libs/awWeights.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1155,10 +1156,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/awSettings.py">
+    <entry file="file://$PROJECT_DIR$/ui/AWRiggingTools_UI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+        <state vertical-scroll-proportion="-4.1034484">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1166,39 +1167,19 @@
     <entry file="file://$PROJECT_DIR$/libs/AWGeneral.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
-            <element signature="e#18#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ui/AWRiggingTools_UI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.37931">
-          <caret line="557" column="47" selection-start-line="557" selection-start-column="47" selection-end-line="557" selection-end-column="47" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
+            <element signature="e#19#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libs/awConstraints.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35172415">
-          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.19800332">
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
           <folding>
-            <element signature="e#22#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/awJoints.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29250893">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <element signature="e#22#46#0" expanded="true" />
+            <element signature="e#21#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
