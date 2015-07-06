@@ -9,6 +9,7 @@ from maya.app.general.mayaMixin import  MayaQWidgetDockableMixin
 from PySide import QtCore
 from PySide.QtGui import *
 
+import libs.awConstraints as AWC
 import libs.awRenamer as AWR
 import libs.awMirrorObj as AMO
 import libs.awWeights as AWW
@@ -113,8 +114,6 @@ class AWTools_UI(QDialog):
         self.importWeightsButton = QPushButton('Import Weights')
         self.weights_layout.addWidget(self.exportWeightsButton)
         self.weights_layout.addWidget(self.importWeightsButton)
-        reload(AWW)
-        AWW
         self.exportWeightsButton.clicked.connect(AWW.SkinCluster.export)
         self.importWeightsButton.clicked.connect(AWW.SkinCluster.createAndImport)
 
@@ -393,8 +392,8 @@ class AWTools_UI(QDialog):
         self.joints_groupBox = QGroupBox('Joint Splitter')
         self.jointSplitLayout = QVBoxLayout(self.joints_groupBox)
 
-        self.vfk_groupBox = QGroupBox('Variable FK')
-        self.vfk_layout = QVBoxLayout(self.vfk_groupBox)
+        self.constraints_groupBox = QGroupBox('Constraints')
+        self.constraints_layout = QVBoxLayout(self.constraints_groupBox)
 
         self.editJoints_groupBox = QGroupBox('Edit Joints')
         self.editJoints_layout = QVBoxLayout(self.editJoints_groupBox)
@@ -562,6 +561,11 @@ class AWTools_UI(QDialog):
         else:
             self.mirrorObj_selObj_text.setText(str(curSel[0]))
 
+    def _createConstraintsLayout(self):
+        self.constraints_createIKPVButton = QPushButton('Create IK PV Loc')
+        self.constraints_layout.addWidget(self.constraints_createIKPVButton)
+        reload(AWC)
+        self.constraints_createIKPVButton.released.connect(lambda: AWC.ikPoleVectorLoc())
 
 
     def _layout(self):
@@ -579,6 +583,7 @@ class AWTools_UI(QDialog):
         self._createMirrorObjLayout()
         self._createRiggingLayout()
         self._createJointSplitLayout()
+        self._createConstraintsLayout()
 
         self.main_layout = QVBoxLayout()
         self.main_layout.setContentsMargins(2, 2, 2, 2)
@@ -612,7 +617,7 @@ class AWTools_UI(QDialog):
         self.riggingToolsLayout.addWidget(self.jointOrient_groupBox)
 
         self.riggingToolsLayout.addWidget(self.editJoints_groupBox)
-        self.riggingToolsLayout.addWidget(self.vfk_groupBox)
+        self.riggingToolsLayout.addWidget(self.constraints_groupBox)
 
         self.tab_layout = QTabWidget()
         self.tab_layout.addTab(self.operationToolsWidget, 'Operations')

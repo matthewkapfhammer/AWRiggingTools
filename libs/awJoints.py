@@ -9,8 +9,7 @@ from awSettings import *
 def boneSplitter(cuts=1, suffix=None, keepOriginalJoint=True):
 
     curSel = AWG.getCurrentSelection()
-    print(curSel)
-    print(pmc.nodeType(curSel[0]))
+
     if not curSel:
         pmc.displayError(eSELECT_BONE)
         return
@@ -44,8 +43,7 @@ def boneSplitter(cuts=1, suffix=None, keepOriginalJoint=True):
     cLoc = aVector + splitVector
 
     parent = bone
-    selChildren = bone.getChildren()
-    reload(AWG)
+    # reload(AWG)
     for cut in range(0, cuts):
         if cut == 0:
             segment = pmc.duplicate(bone)[0]
