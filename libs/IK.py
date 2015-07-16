@@ -8,6 +8,9 @@ Elbow Sliding
 Stretchy IK.
 Soft IK(works with stretching)
 Elbow Pinning
+
+A lot of this will be hardcoded for now because it needs to be finished for a rig like... yesterday.
+Later on, I'll make it modular. Just no time right now.
 """
 import traceback
 from shiboken import wrapInstance
@@ -49,7 +52,7 @@ class IKSTUFF(QtGui.QDialog):
         self.mainLayout.addLayout(self.shoulderHBox)
 
         self.rootLabel = QtGui.QLabel('Root Object: ')
-        self.rootObjectLine = QtGui.QLineEdit('')
+        self.rootObjectLine = QtGui.QLineEdit('null_l_armRoot')
         self.rootPushButton = QtGui.QPushButton('Load')
 
         self.rootHBox.addWidget(self.rootLabel)
@@ -57,12 +60,21 @@ class IKSTUFF(QtGui.QDialog):
         self.rootHBox.addWidget(self.rootPushButton)
 
         self.shoulderLabel = QtGui.QLabel('Shoulder: ')
-        self.shoulderObjectLine = QtGui.QLineEdit('')
+        self.shoulderObjectLine = QtGui.QLineEdit('shoulder_L_JNT')
         self.shoulderButton = QtGui.QPushButton('Load')
 
         self.shoulderHBox.addWidget(self.shoulderLabel)
         self.shoulderHBox.addWidget(self.shoulderObjectLine)
         self.shoulderHBox.addWidget(self.shoulderButton)
+
+        self.sideHBox = QtGui.QHBoxLayout()
+        self.mainLayout.addLayout(self.sideHBox)
+
+        self.sideLabel = QtGui.QLabel('Side: ')
+        self.sideLine = QtGui.QLineEdit('L_')
+        self.sideHBox.addWidget(self.sideLabel)
+        self.sideHBox.addWidget(self.sideLine)
+
 
         self.createIKButton = QtGui.QPushButton('Create IK')
         self.mainLayout.addWidget(self.createIKButton)
@@ -73,6 +85,7 @@ class IKSTUFF(QtGui.QDialog):
         self.createIKButton.clicked.connect(lambda: self.createIK())
 
     def createIK(self):
+        side = self.sideLine.text()
         rootObject = self.rootObjectLine.text()
         shoulderBone = self.shoulderObjectLine.text()
 
@@ -81,6 +94,64 @@ class IKSTUFF(QtGui.QDialog):
         pyElbow = pmc.PyNode(pmc.pickWalk(d='down')[0])
         if pyElbow:
             pyWrist = pmc.PyNode(pmc.pickWalk(d='down')[0])
+        else:
+            return
+        if not pyWrist:
+            return
+        if not rootObject:
+            return
+
+        # Assuming all joints are aligned correctly.
+        try:
+            softBlendLocator = pmc.spaceLocator(n=side + 'softBlendLocator')
+            elbowLocator = pmc.spaceLocator(n=side + 'elbowLocator')
+            wristLocator = pmc.spaceLocator(n=side + 'wristLocator')
+            upperArmLocator = pmc.spaceLocator(n=side + 'upperArmLocator')
+            armControlDistLocator = pmc.spaceLocator(n=side + 'armControlDistLocator')
+            armControl = pmc.nurbsSquare(n=side + 'IKArmControl')
+            # Might need some work
+            # Do the new IKControl setup. Fuckkkkk.
+            pmc.select(cl=True)
+            ikCtrlJoint = pmc.joint(n=side + 'armControlIK')
+            # worry about this later
+            pmc.parent(armControl, ikCtrlJoint, relative=True, shape=True) # parent the shape to the jnt
+
+            self.giveXformsFromAToB(pyWrist, ikCtrlJoint)
+            # pmc.select(cl=True)
+            ikCtrlJointOffset = pmc.group(ikCtrlJoint, n=side + 'armControlIK_offset', a=True)
+            pmc.makeIdentity(ikCtrlJoint, apply=True, rotate=True, scale=True)
+
+            #self.giveXformsFromAToB(pyWrist, ikCtrlJointOffset)
+            pmc.ikHandle
+
+            self.giveXformsFromAToB(pyWrist, softBlendLocator)
+            self.giveXformsFromAToB(pyElbow, elbowLocator)
+            self.giveXformsFromAToB(pyWrist, wristLocator)
+            self.giveXformsFromAToB(pyWrist, armControlDistLocator)
+            self.giveXformsFromAToB(pyShoulder, upperArmLocator)
+
+
+
+            # parent everything under the root node
+            # last object is the parent
+            pmc.parent(upperArmLocator, wristLocator, pyShoulder, wristLocator, rootObject, relative=True)
+        except:
+            print(traceback.format_exc())
+
+
+
+    def giveXformsFromAToB(self, objectA, objectB):
+        objectAXFormT = pmc.xform(objectA, q=True, ws=True, t=True)
+        objectAXFormR = pmc.xform(objectA, q=True, ws=True, ro=True)
+        objectBXForm = pmc.xform(objectB, ws=True, t=objectAXFormT, ro=objectAXFormR)
+
+
+
+
+
+
+
+
 
 
 
